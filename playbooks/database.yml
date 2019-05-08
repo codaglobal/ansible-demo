@@ -1,0 +1,16 @@
+---
+- hosts: dbservers
+  become: true
+  vars:
+    db_name: "famous_quotes"
+  
+  tasks:
+    - name: Ensure mysql is installed
+      package:
+        name: mysql_server
+        state: present
+      when: ansible_distribution == 'Ubuntu'
+
+    - name: Deploy database
+      mysql_db:
+        name: {{ db_name }}
