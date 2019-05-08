@@ -1,0 +1,1 @@
+This the configuration needed to enable nginx to server the sample app as well as reverse-proxy the quotes service
