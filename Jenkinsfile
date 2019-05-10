@@ -12,6 +12,10 @@ spec:
     image: dgreenstein/ansible:latest
     command: ['cat']
     tty: true
+  - name: mysql
+    image: mysql:5.7
+    command: ['cat']
+    tty: true
   resources:
     requests:
       memory: "1024Mi"
@@ -29,6 +33,13 @@ spec:
                     sh 'ansible --version'
                 }
             }
+        }
+        stage('test') {
+          steps {
+            container('ansible') {
+              sh 'ansible-playbook playbooks/database.yml'
+            }
+          }
         }
     }
 }
