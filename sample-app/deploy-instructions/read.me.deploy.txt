@@ -1,0 +1,36 @@
+Deploy instructions for demo app for the webinar-2019 project:
+
+* this document must be followed after the build instructions
+
+1. edit /etc/hosts and add the following values
+
+127.0.0.1 quoteservice
+127.0.0.1 quotesdb
+
+2. remove any java versions installed other than OpenJDK8
+  - For Ubuntu OpenJRE11 is installed by default. Execute:
+    apt-get remove openjdk-11-jre-headless
+    * for playbooks, make sure both the JRE and / or JDK are removed.
+
+3. Install the following packages:
+  - openjdk-8-jre
+  - nginx
+  - tomcat8
+  - mysql-server-5.7
+  - mysql-client
+
+  * by default the services are started and enabled, however, its always a good
+    idea to make sure services are enabled and started.
+
+4. copy the following files to the specified locations:
+  - famous-qoutes-schema-setup-5.7.sql -> user home directory
+  - frontend folder -> /var/www/html
+  - default -> /etc/nginx/sites-available *(overwrite original file)
+  - FamousQuotes.war -> /var/lib/tomcat8/webapps
+
+5. As root execute the following command from the user home directory:
+  $> mysql < famous-qoutes-schema-setup-5.7.sql
+
+6. restart nginx to activate new configuration
+
+7. verify application is working by navigating to the server's IP.

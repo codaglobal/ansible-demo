@@ -1,0 +1,22 @@
+FamousQuotes:
+
+The project is maven based. When the application is compiled the the war file is
+created under the <project-directory>/target folder. the resulting war will need
+to be renamed from FamousQuotes-1.0-SNAPSHOT.war to FamousQuotes.war.
+
+There are not values which need to be changed in the code.
+
+To buld the app execute:
+ $> mvn package
+
+
+frontend:
+
+This application is an Angular SPA application.
+the quote.service.ts contains the baseurl variable tells the application where
+find quote service. This value needs to be update with the relevant information
+prior to compiling and deploying the application.
+
+Compile the application with the following command:
+
+$> ng build --prod true --aot true --build-optimizer --optimization --bash-href /
