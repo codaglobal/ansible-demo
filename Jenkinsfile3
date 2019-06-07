@@ -44,5 +44,7 @@ def mvnHome = tool 'M3'
               else
               echo "Server is down"
               fi '''
+           }
+        }
         }
 }
