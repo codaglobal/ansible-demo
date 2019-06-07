@@ -1,14 +1,16 @@
+#!/usr/bin/env groovy
+
 pipeline {
 environment {
 def mvnHome = tool 'M3'
-echo "BUILD_DISPLAY_NAME" :: $BUILD_DISPLAY_NAME
    }
     agent any 
     stages {
         stage('Build') { 
             steps {
     git 'https://github.com/codaglobal/ansible-demo.git'
-    echo $BUILD_DISPLAY_NAME
+    currentBuild.displayName = "name"
+    echo $name
     sh '''
     mvn -f /var/lib/jenkins/workspace/webinar/sample-app/middleware/FamousQuotes/pom.xml clean install
     cd /var/lib/jenkins/workspace/webinar/sample-app/frontend/frontend
