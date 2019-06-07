@@ -37,6 +37,12 @@ def mvnHome = tool 'M3'
         }
         stage('Test'){
            steps{
-        
-    }
+              sh '''
+              curl -ivs https://webinar-dev-demo.coda.run
+              if [ $? -ne 0 ]
+              then echo "Server is UP"
+              else
+              echo "Server is down"
+              fi '''
+        }
 }
