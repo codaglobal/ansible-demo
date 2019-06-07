@@ -9,7 +9,7 @@ def mvnHome = tool 'M3'
         stage('Build') { 
             steps {
     git 'https://github.com/codaglobal/ansible-demo.git'
-    currentBuild.displayName = "name"
+    currentBuild.displayName = "{$name}"
     echo $name
     sh '''
     mvn -f /var/lib/jenkins/workspace/webinar/sample-app/middleware/FamousQuotes/pom.xml clean install
