@@ -1,10 +1,12 @@
 pipeline {
+environment {
+def mvnHome = tool 'M3'
+   }
     agent any 
     stages {
         stage('Build') { 
             steps {
     git 'https://github.com/codaglobal/ansible-demo.git'
-    def mvnHome = tool 'M3'
     sh '''
     mvn -f /var/lib/jenkins/workspace/webinar/sample-app/middleware/FamousQuotes/pom.xml clean install
     cd /var/lib/jenkins/workspace/webinar/sample-app/frontend/frontend
