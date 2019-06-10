@@ -37,13 +37,7 @@ def mvnHome = tool 'M3'
         }
         stage('Test'){
            steps{
-              sh '''
-              curl -ivs http://webinar-dev-demo.coda.run
-              if [ $? -ne 0 ]
-              then echo "Server is UP"
-              else
-              echo "Server is down"
-              fi '''
+    ansiblePlaybook become: true, disableHostKeyChecking: true, inventory: '/home/ubuntu/webinar/hosts', playbook: '/home/ubuntu/webinar/deployment.yml', vaultCredentialsId: 'Ansible'
            }
         }
         }
