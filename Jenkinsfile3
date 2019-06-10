@@ -37,7 +37,7 @@ def mvnHome = tool 'M3'
         }
         stage('Test'){
            steps{
-    ansiblePlaybook become: true, disableHostKeyChecking: true, inventory: '/home/ubuntu/webinar/hosts', playbook: '/home/ubuntu/webinar/deployment.yml', vaultCredentialsId: 'Ansible'
+    ansiblePlaybook become: true, disableHostKeyChecking: true, inventory: '/home/ubuntu/webinar/hosts', playbook: '/home/ubuntu/webinar/url.yml'
            }
         }
         }
