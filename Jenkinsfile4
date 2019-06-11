@@ -39,5 +39,12 @@ def mvnHome = tool 'M3'
     ansiblePlaybook become: true, disableHostKeyChecking: true, inventory: '/home/ubuntu/webinar/hosts', playbook: '/home/ubuntu/webinar/url.yml'
            }
         }
+       stage('Destroy'){
+          when{
+             expression {env.BRANCH_NAME != 'master'}
+          }
+          steps {
+                echo "Hello, bitwiseman!"
+            }
         }
 }
