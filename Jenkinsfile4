@@ -73,7 +73,7 @@ def mvnHome = tool 'M3'
              expression {env.BRANCH_NAME == 'master'}
           }
           steps {
-                echo "Hello, bitwiseman!"
+                ansiblePlaybook become: true, disableHostKeyChecking: true, inventory: '/home/ubuntu/webinar/hosts', playbook: '/home/ubuntu/webinar/test.yml', vaultCredentialsId: 'Ansible'
             }
         }
 }
