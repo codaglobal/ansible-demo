@@ -4,7 +4,7 @@ pipeline {
 environment {
 def mvnHome = tool 'M3'
    }
-    agent any 
+    agent master 
     stages {
         stage('Build') { 
             steps {
