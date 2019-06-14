@@ -5,9 +5,7 @@ environment {
 def mvnHome = tool 'M3'
    }
    agent {
-   {
-   node(‘master’)
-   }
+   {node(‘master’)}
    }
     stages {
         stage('Build') { 
