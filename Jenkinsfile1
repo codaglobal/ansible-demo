@@ -4,6 +4,7 @@ pipeline {
 environment {
 def mvnHome = tool 'M3'
    }
+   node(‘master’) 
     stages {
         stage('Build') { 
             steps {
