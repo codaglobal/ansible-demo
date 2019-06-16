@@ -70,7 +70,7 @@ def mvnHome = tool 'M3'
         }
        stage('Destroy'){
           when{
-             expression {env.BRANCH_NAME = 'master'}
+             expression {env.BRANCH_NAME != 'master'}
           }
           steps {
                 ansiblePlaybook become: true, disableHostKeyChecking: true, inventory: '/home/ubuntu/webinar/hosts', playbook: '/home/ubuntu/webinar/test.yml', vaultCredentialsId: 'Ansible'
