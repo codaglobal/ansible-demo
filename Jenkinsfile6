@@ -16,7 +16,7 @@ spec:
     command: ['cat']
     tty: true
   - name: ansible
-    image: dgreenstein/ansible:latest
+    image: sponmuth/ansible:latest
     command: ['cat']
     tty: true
   resources:
@@ -73,19 +73,33 @@ spec:
                }
             }
         }
-        stage('Deploy') 
-            steps {
+        stage('Deploy') {
+            steps
             {
             container('ansible')
             { 
            script {
                     if (env.BRANCH_NAME == 'master') {
-            ansiblePlaybook become: true, disableHostKeyChecking: true, inventory: './hosts', playbook: './deployment.yml', vaultCredentialsId: 'Ansible'
+                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'AWS', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) 
+                    {
+                    git 'https://github.com/subbuprasantp/ansible-demo.git'
+            sh '''
+            export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
+            export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+            ansible-playbook -i ./webinar/hosts ./webinar/deployment.yml '''
+               }
                }
                else {
-                  ansiblePlaybook become: true, disableHostKeyChecking: true, inventory: './hosts', playbook: './deployment1.yml', vaultCredentialsId: 'Ansible'
+                   withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'AWS', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) 
+                    {
+                    git 'https://github.com/subbuprasantp/ansible-demo.git'
+            sh '''
+            export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
+            export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+            ansible-playbook -i ./webinar/hosts ./webinar/deployment1.yml '''
                }
-            }         
+               }         
+            }
             }
         }
     }
