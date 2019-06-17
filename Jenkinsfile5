@@ -11,7 +11,7 @@ apiVersion: v1
 kind: Pod
 spec:
   containers:
-  - name: ansible
+  - name: maven-npm
     image: sponmuth/maven-npm:latest
     command: ['cat']
     tty: true
