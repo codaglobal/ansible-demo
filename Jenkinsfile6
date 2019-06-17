@@ -73,10 +73,11 @@ spec:
                }
             }
         }
-        stage('Deploy') {
-            container('maven-npm')
-            { 
+        stage('Deploy') 
             steps {
+            {
+            container('ansible')
+            { 
            script {
                     if (env.BRANCH_NAME == 'master') {
             ansiblePlaybook become: true, disableHostKeyChecking: true, inventory: '/home/ubuntu/webinar/hosts', playbook: '/home/ubuntu/webinar/deployment.yml', vaultCredentialsId: 'Ansible'
