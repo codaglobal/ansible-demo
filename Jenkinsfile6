@@ -1,0 +1,92 @@
+pipeline {
+    environment {
+            def mvnHome = tool 'M3'
+            }
+    agent {
+        kubernetes {
+            label "demo-app-${BUILD_NUMBER}"
+            defaultContainer 'jnlp'
+            yaml """
+apiVersion: v1
+kind: Pod
+spec:
+  containers:
+  - name: maven-npm
+    image: sponmuth/maven-npm:latest
+    command: ['cat']
+    tty: true
+  - name: ansible
+    image: dgreenstein/ansible:latest
+    command: ['cat']
+    tty: true
+  resources:
+    requests:
+      memory: "1024Mi"
+      cpu: "300m"
+    limits:
+      memory: "1024Mi"
+      cpu: "300m"
+"""
+        }
+    }
+    stages {
+        stage('Build') { 
+            steps {
+            container('maven-npm') {
+    git 'https://github.com/codaglobal/ansible-demo.git'
+    sh '''
+    mvn -f ./sample-app/middleware/FamousQuotes/pom.xml clean install
+    cd ./sample-app/frontend/frontend
+    npm install
+    npm run-script build''' 
+            }
+            }
+        }
+                stage('Upload') { 
+            steps {
+            container('maven-npm') {
+               script {
+                    if (env.BRANCH_NAME == 'master') {
+        withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'AWS', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) 
+       {
+        sh '''
+        export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
+        export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+        aws s3 sync  ./sample-app/frontend/frontend/dist/frontend s3://webinar-jenkins/frontend
+        aws s3 sync ./sample-app/nginx/ s3://webinar-jenkins
+        aws s3 cp ./sample-app/middleware/FamousQuotes/target/FamousQuotes-1.0-SNAPSHOT.war s3://webinar-jenkins
+        aws s3 cp ./sample-app/database/famous-qoutes-schema-setup-5.7.sql s3://webinar-jenkins'''
+        } 
+                    }
+                  else  {withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'AWS', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) 
+       {
+        sh '''
+        export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
+        export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+        aws s3 sync  ./sample-app/frontend/frontend/dist/frontend s3://webinar-jenkins-test/frontend
+        aws s3 sync ./sample-app/nginx/ s3://webinar-jenkins-test
+        aws s3 cp ./sample-app/middleware/FamousQuotes/target/FamousQuotes-1.0-SNAPSHOT.war s3://webinar-jenkins-test
+        aws s3 cp ./sample-app/database/famous-qoutes-schema-setup-5.7.sql s3://webinar-jenkins-test'''
+        } 
+        }
+                        }
+               }
+            }
+        }
+        stage('Deploy') {
+            container('maven-npm')
+            { 
+            steps {
+           script {
+                    if (env.BRANCH_NAME == 'master') {
+            ansiblePlaybook become: true, disableHostKeyChecking: true, inventory: '/home/ubuntu/webinar/hosts', playbook: '/home/ubuntu/webinar/deployment.yml', vaultCredentialsId: 'Ansible'
+               }
+               else {
+                  ansiblePlaybook become: true, disableHostKeyChecking: true, inventory: '/home/ubuntu/webinar/hosts', playbook: '/home/ubuntu/webinar/deployment1.yml', vaultCredentialsId: 'Ansible'
+               }
+            }         
+            }
+        }
+    }
+    }
+}
