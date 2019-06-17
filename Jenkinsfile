@@ -9,7 +9,7 @@ kind: Pod
 spec:
   containers:
   - name: ansible
-    image: sponmuth/maven-npm:latest
+    image: dgreenstein/ansible:latest
     command: ['cat']
     tty: true
   - name: mysql
