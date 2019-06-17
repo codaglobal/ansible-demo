@@ -38,7 +38,7 @@ spec:
         aws s3 cp s3://webinar-jenkins-test/ss.pem ss.pem --recursive
         ls
         pwd
-        chmod 644 ./webinar/ss.pem'''
+        chmod 644 ss.pem'''
         } 
                      }
                }
