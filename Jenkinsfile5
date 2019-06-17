@@ -35,12 +35,13 @@ spec:
         sh '''
         export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
         export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
-        aws s3 cp s3://webinar-jenkins-test/ss.pem ss.pem --recursive
+        aws s3 cp s3://webinar-jenkins-test/ss.pem /home/jenkins/workspace/ss.pem --recursive
         ls
         pwd
-        ll
-        chmod 644 ss.pem
-        ll'''
+        ls -ltrh
+        chmod 644 /home/jenkins/workspace/ss.pem
+        ls -ltrh
+        '''
         } 
                      }
                }
