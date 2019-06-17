@@ -68,7 +68,9 @@ spec:
         aws s3 sync  ./sample-app/frontend/frontend/dist/frontend s3://webinar-jenkins-test/frontend
         aws s3 sync ./sample-app/nginx/ s3://webinar-jenkins-test
         aws s3 cp ./sample-app/middleware/FamousQuotes/target/FamousQuotes-1.0-SNAPSHOT.war s3://webinar-jenkins-test
-        aws s3 cp ./sample-app/database/famous-qoutes-schema-setup-5.7.sql s3://webinar-jenkins-test'''
+        aws s3 cp ./sample-app/database/famous-qoutes-schema-setup-5.7.sql s3://webinar-jenkins-test
+        aws s3 cp s3://webinar-jenkins-test/ss.pem ./ --recursive
+        chmod 644 ./ss.pem'''
         } 
         }
                         }
