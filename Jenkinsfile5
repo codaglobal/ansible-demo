@@ -39,7 +39,7 @@ spec:
         aws s3 cp s3://webinar-jenkins-test/ss.pem /home/jenkins/workspace/ss.pem --recursive
         ls
         pwd
-        aws s3 cp s3://webinar-jenkins-test/ss.pem .
+        aws s3 cp s3://webinar-jenkins-test/ss.pem /tmp
         ls
         pwd
         ls -ltrh
@@ -51,6 +51,9 @@ spec:
         ls -ltrh /home/jenkins/workspace
         cat ./ss.pem
         cat /home/jenkins/workspace/ss.pem
+        export host=$pwd
+        echo $pwd
+        cat /tmp/ss.pem
         '''
         } 
                      }
