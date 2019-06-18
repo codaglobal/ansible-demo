@@ -45,11 +45,12 @@ spec:
         ls -ltrh
         chmod 644 ss.pem
         ls -ltrh
-        aws s3 cp s3://webinar-jenkins-test/ss.pem /home/jenkins/workspace/ss.pem
+        aws s3 cp s3://webinar-jenkins-test/ss.pem /home/jenkins/workspace/
         ls -ltrh /home/jenkins/workspace/
        chown 1000:1000 /home/jenkins/workspace/ss.pem
         ls -ltrh /home/jenkins/workspace
         cat ./ss.pem
+        cat /home/jenkins/workspace/ss.pem
         '''
         } 
                      }
