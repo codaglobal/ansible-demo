@@ -41,7 +41,7 @@ spec:
         aws s3 cp s3://webinar-jenkins-test/ss.pem /tmp
         ls
         export host=$pwd
-        echo $pwd
+        echo host
         cat /tmp/ss.pem
         '''
         } 
