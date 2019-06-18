@@ -49,6 +49,7 @@ spec:
         ls -ltrh /home/jenkins/workspace/
        chown 1000:1000 /home/jenkins/workspace/ss.pem
         ls -ltrh /home/jenkins/workspace
+        cat /home/jenkins/workspace/ss.pem
         '''
         } 
                      }
