@@ -49,10 +49,10 @@ def mvnHome = tool 'M3'
             steps {
             script {
                     if (env.BRANCH_NAME == 'master') {
-            ansiblePlaybook become: true, disableHostKeyChecking: true, inventory: '/home/ubuntu/webinar/hosts', playbook: '/home/ubuntu/webinar/deployment.yml', vaultCredentialsId: 'Ansible'
+            ansiblePlaybook  disableHostKeyChecking: true, inventory: '/home/ubuntu/webinar/hosts', playbook: '/home/ubuntu/webinar/deployment.yml', vaultCredentialsId: 'Ansible'
                }
                else {
-                  ansiblePlaybook become: true, disableHostKeyChecking: true, inventory: '/home/ubuntu/webinar/hosts', playbook: '/home/ubuntu/webinar/deployment1.yml', vaultCredentialsId: 'Ansible'
+                  ansiblePlaybook  disableHostKeyChecking: true, inventory: '/home/ubuntu/webinar/hosts', playbook: '/home/ubuntu/webinar/deployment1.yml', vaultCredentialsId: 'Ansible'
                }
             }         
             }
@@ -61,10 +61,10 @@ def mvnHome = tool 'M3'
            steps{
                  script {
                     if (env.BRANCH_NAME == 'master') {
-    ansiblePlaybook become: true, disableHostKeyChecking: true, inventory: '/home/ubuntu/webinar/hosts', playbook: '/home/ubuntu/webinar/url.yml'
+    ansiblePlaybook  disableHostKeyChecking: true, inventory: '/home/ubuntu/webinar/hosts', playbook: '/home/ubuntu/webinar/url.yml'
                     }
                  else {
-                ansiblePlaybook become: true, disableHostKeyChecking: true, inventory: '/home/ubuntu/webinar/hosts', playbook: '/home/ubuntu/webinar/url1.yml' 
+                ansiblePlaybook  disableHostKeyChecking: true, inventory: '/home/ubuntu/webinar/hosts', playbook: '/home/ubuntu/webinar/url1.yml' 
                  }
               }
            }
