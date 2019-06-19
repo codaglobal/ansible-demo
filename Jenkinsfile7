@@ -19,10 +19,6 @@ spec:
     image: sponmuth/ansible-1:latest
     command: ['cat']
     tty: true
-  - name: ansible1
-    image: sponmuth/ansible-1:latest
-    command: ['cat']
-    tty: true
   resources:
     requests:
       memory: "1024Mi"
@@ -117,7 +113,7 @@ spec:
     }
     stage('Test'){
            steps{
-               container('ansible1')
+               container('ansible')
             { 
                  script {
                     if (env.BRANCH_NAME == 'master') {
