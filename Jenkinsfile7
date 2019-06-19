@@ -55,9 +55,7 @@ spec:
         aws s3 sync  ./sample-app/frontend/frontend/dist/frontend s3://webinar-jenkins/frontend
         aws s3 sync ./sample-app/nginx/ s3://webinar-jenkins
         aws s3 cp ./sample-app/middleware/FamousQuotes/target/FamousQuotes-1.0-SNAPSHOT.war s3://webinar-jenkins
-        aws s3 cp ./sample-app/database/famous-qoutes-schema-setup-5.7.sql s3://webinar-jenkins
-        aws s3 cp s3://webinar-jenkins-test/ss.pem /home/jenkins/workspace/ss.pem --recursive
-        chmod 600 /home/jenkins/workspace/ss.pem'''
+        aws s3 cp ./sample-app/database/famous-qoutes-schema-setup-5.7.sql s3://webinar-jenkins '''
         } 
                     }
                   else  {withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'AWS', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) 
