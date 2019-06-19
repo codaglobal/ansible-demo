@@ -133,7 +133,7 @@ spec:
               }
            }
            }
-    }
+}
     stage('Destroy'){
           when{
              expression {env.BRANCH_NAME != 'master'}
@@ -141,7 +141,10 @@ spec:
           steps {
               container('ansible')
               {
-               ansible-playbook -i ./hosts ./test.yml 
+               sh '''
+                     export host=`pwd`
+                     cd ./webinar
+                     ansible-playbook ./test.yml ''' 
               }
           }
         }
