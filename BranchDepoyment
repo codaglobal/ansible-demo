@@ -116,6 +116,8 @@ spec:
                container('ansible')
             { 
                  script {
+                    withCredentials([string(credentialsId: 'slacktoken', variable: 'slack')])
+                    {
                     if (env.BRANCH_NAME == 'master') {
            git 'https://github.com/subbuprasantp/ansible-demo.git'
             sh '''
@@ -129,6 +131,7 @@ spec:
             export host=`pwd`
             cd ./webinar
             ansible-playbook ./url1.yml ''' 
+                 }
                  }
               }
            }
