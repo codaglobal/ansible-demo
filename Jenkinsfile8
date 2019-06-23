@@ -1,0 +1,60 @@
+pipeline {
+    environment {
+            def mvnHome = tool 'M3'
+            }
+    agent {
+        kubernetes {
+            label "demo-app-${BUILD_NUMBER}"
+            defaultContainer 'jnlp'
+            yaml """
+apiVersion: v1
+kind: Pod
+spec:
+  containers:
+  - name: maven-npm
+    image: sponmuth/maven-npm:latest
+    command: ['cat']
+    tty: true
+  - name: ansible
+    image: sponmuth/ansible-1:latest
+    command: ['cat']
+    tty: true
+  resources:
+    requests:
+      memory: "1024Mi"
+      cpu: "300m"
+    limits:
+      memory: "1024Mi"
+      cpu: "300m"
+"""
+        }
+    }
+    stages {
+    stage('Test'){
+           steps{
+               container('ansible')
+            { 
+                 script {
+                    withCredentials([string(credentialsId: 'slacktoken', variable: 'slack')])
+                    {
+                    if (env.BRANCH_NAME == 'master') {
+           git 'https://github.com/subbuprasantp/ansible-demo.git'
+            sh '''
+            export host=`pwd`
+            cd ./webinar
+            ansible-playbook ./url.yml '''
+                    }
+                 else {
+           git 'https://github.com/subbuprasantp/ansible-demo.git'      
+                sh '''
+            export host=`pwd`
+            cd ./webinar
+            ansible-playbook ./url1.yml ''' 
+                 }
+                 }
+              }
+           }
+           }
+}
+    }
+}
