@@ -42,14 +42,14 @@ spec:
             sh '''
             export host=`pwd`
             cd ./webinar
-            ansible-playbook ./url.yml '''
+            ansible-playbook ./test.yml '''
                     }
                  else {
            git 'https://github.com/subbuprasantp/ansible-demo.git'      
                 sh '''
             export host=`pwd`
             cd ./webinar
-            ansible-playbook ./url1.yml ''' 
+            ansible-playbook ./test.yml -vvvv''' 
                  }
                  }
               }
