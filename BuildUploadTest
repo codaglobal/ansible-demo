@@ -131,8 +131,9 @@ spec:
             ansible-playbook ./url1.yml ''' 
                  }
                  }
-              }
            }
            }
     }
+    }    
+}
 }
