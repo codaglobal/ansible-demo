@@ -42,14 +42,14 @@ spec:
             sh '''
             export host=`pwd`
             cd ./webinar
-            ansible-playbook ./test.yml '''
+            ansible-playbook ./url.yml '''
                     }
                  else {
            git 'https://github.com/subbuprasantp/ansible-demo.git'      
                 sh '''
             export host=`pwd`
             cd ./webinar
-            ansible-playbook ./test.yml -vvvv''' 
+            ansible-playbook ./url1.yml --extra-vars="DNS=${BUILD_NUMBER}.coda.run" -vvvv ''' 
                  }
                  }
               }
