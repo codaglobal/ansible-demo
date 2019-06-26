@@ -102,7 +102,7 @@ spec:
             aws s3 cp s3://webinar-jenkins-test/ss.pem /tmp
             export host=`pwd`
             cd ./webinar
-            ansible-playbook -i ./hosts ./deployment1.yml '''
+            ansible-playbook -i ./hosts ./deployment1.yml --extra-vars="DNS=${BUILD_NUMBER}.coda.run'''
                }
                }         
             }
