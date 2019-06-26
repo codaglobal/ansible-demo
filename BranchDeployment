@@ -130,7 +130,7 @@ spec:
                 sh '''
             export host=`pwd`
             cd ./webinar
-            ansible-playbook ./url1.yml --extra-vars="DNS=${BUILD_NUMBER}"''' 
+            ansible-playbook ./url1.yml --extra-vars="DNS=${BUILD_NUMBER}.coda.run"''' 
                  }
                  }
               }
@@ -151,7 +151,7 @@ spec:
                      export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
                      export host=`pwd`
                      cd ./webinar
-                     ansible-playbook ./test.yml --extra-vars="DNS=${BUILD_NUMBER}"''' 
+                     ansible-playbook ./destroy.yml --extra-vars="DNS=${BUILD_NUMBER}.coda.run"''' 
               }
             }
           }
