@@ -104,7 +104,7 @@ spec:
             aws s3 cp s3://webinar-jenkins-test/ss.pem /tmp
             export host=`pwd`
             cd ./webinar
-            ansible-playbook -i ./hosts ./deployment1.yml '''
+            ansible-playbook -i ./hosts ./deployment1.yml --extar-vars="DNS=${BUILD_NUMBER}"'''
                }
                }         
             }
@@ -130,7 +130,7 @@ spec:
                 sh '''
             export host=`pwd`
             cd ./webinar
-            ansible-playbook ./url1.yml ''' 
+            ansible-playbook ./url1.yml --extar-vars="DNS=${BUILD_NUMBER}"''' 
                  }
                  }
               }
@@ -151,7 +151,7 @@ spec:
                      export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
                      export host=`pwd`
                      cd ./webinar
-                     ansible-playbook ./test.yml ''' 
+                     ansible-playbook ./test.yml --extar-vars="DNS=${BUILD_NUMBER}"''' 
               }
             }
           }
