@@ -33,7 +33,7 @@ spec:
         stage('Build') { 
             steps {
             container('maven-npm') {
-    git 'https://github.com/codaglobal/ansible-demo.git'
+    git 'https://github.com/subbuprasantp/ansible-demo.git'
     sh '''
     mvn -f ./sample-app/middleware/FamousQuotes/pom.xml clean install
     cd ./sample-app/frontend/frontend
